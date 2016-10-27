@@ -15,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/MarcMcIntosh/FCC-Voting-app/issues"
   },
-  "homepage": "https://github.com/MarcMcIntosh/FCC-Voting-app#readme"
+  "homepage": "https://github.com/MarcMcIntosh/FCC-Voting-app#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.13",
+    "eslint": "^3.8.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
 }
