@@ -6,16 +6,19 @@
      `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
     ----------------------------------------------------------------- 
 
-
-Welcome to your Node.js project on Cloud9 IDE!
-
-This chat example showcases how to use `socket.io` with a static `express` server.
-
 ## Running the server
 
-1) Open `server.js` and start the app by clicking on the "Run" button in the top menu.
+1) Start up mongodb
+```bash
+./mongo.sh
+```
+2) Open a new terminal ....
 
-2) Alternatively you can launch the app from the Terminal:
+###old notes
+
+3) Open `server.js` and start the app by clicking on the "Run" button in the top menu.
+
+4) Alternatively you can launch the app from the Terminal:
 
     $ node server.js
 
