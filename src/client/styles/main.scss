@@ -1,0 +1,28 @@
+@import "normalize";
+
+$min-screen-size: 320px;
+$max-screen-size: 1824px;
+@function calc-font-size($min, $max){
+  @return calc($min + ( $max - $min ) * ( 100vw - $min-screen-size) / ( $max-screen-size - $min-screen-size ) );
+}
+@function cfs($min, $max) {
+  @return calc-font-size($min, $max);
+}
+h1 {
+  font-size: cfs(24px, 32px);
+}
+h2 {
+  font-size: cfs(18.72px, 24px);
+}
+h3 {
+  font-size: cfs(16px, 18.72px);
+}
+h4, p {
+  font-size: cfs(13.28px, 16px);
+}
+h5 {
+  font-size: cfs(10.72px, 13.28px);
+}
+h6 {
+  font-size: cfs(8px, 10.72px);
+}

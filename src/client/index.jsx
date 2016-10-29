@@ -3,6 +3,9 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { render } from 'react-dom';
 
+// Global Style sheet
+require('./styles/main.scss');
+
 function counter(state = 0, action) {
   switch (action.type) {
     case 'INCREMENT': return state + 1;
