@@ -11,24 +11,24 @@ const PLUGINS_CLIENT = [
     inject: true,
     filename: 'index.html',
     template: 'src/index.ejs',
-    files: { 
+    files: {
       css: ['/styles.css'],
     },
   }),
 ];
 
-const PLUGINS_SERVER = [];
+// const PLUGINS_SERVER = [];
 
 
 module.exports = [
   {
-    name: "client",
-    entry: "src/client/index.jsx",
+    name: 'client',
+    entry: './src/client/index.jsx',
     target: 'web',
     devtool: 'cheap-source-map',
     devServer: {
       inline: true,
-      hot: true
+      hot: true,
     },
     output: {
       filename: '[hash].js',
@@ -54,7 +54,7 @@ module.exports = [
             presets: ['es2015', 'react'],
             plugins: ['transform-object-rest-spread'],
           },
-        },{
+        }, {
           test: /\.scss$/,
           loader: ExtractTextPlugin.extract('css!sass'),
         },
