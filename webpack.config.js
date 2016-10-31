@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 const PLUGINS_CLIENT = [
   new webpack.HotModuleReplacementPlugin(),
@@ -29,6 +30,7 @@ module.exports = [
     devServer: {
       inline: true,
       hot: true,
+      historyApiFallback: true,
     },
     output: {
       filename: '[hash].js',
@@ -39,6 +41,7 @@ module.exports = [
       modulesDirectories: ['node_modules'],
     },
     plugins: PLUGINS_CLIENT,
+    postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
     module: {
       preLoaders: [{
         loader: 'eslint-loader',
@@ -56,7 +59,7 @@ module.exports = [
           },
         }, {
           test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('css!sass'),
+          loader: ExtractTextPlugin.extract('css!postcss!sass'),
         },
       ],
     },

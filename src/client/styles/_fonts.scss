@@ -1,0 +1,39 @@
+//Does not work
+
+@function calc-font-size($min, $max){
+  @return calc($min + ( $max - $min ) * ( 100vw - $min-screen-size) / ( $max-screen-size - $min-screen-size ) );
+}
+@function cfs($min, $max) {
+  @return calc-font-size($min, $max);
+}
+@function calc-line-height($min, $max, $min-font-size, $max-font-size) {
+  @return calc($min + ( $max - $min ) * ( 100vw - $min-font-size) / ( $max-font-size - $min-font-size ));
+}
+@function clh($a, $b, $c, $d) {
+  // for $1, $2, $3, $4  use em
+  @return calc-line-height($a, $b, $c, $d);
+}
+h1 {
+  font-size: cfs(24px, 32px);
+  line-height: clh(1.5, 2, 24, 32);
+}
+h2 {
+  font-size: cfs(18.72px, 24px);
+  line-height: clh(1.17, 1.5, 18.72, 24);
+}
+h3 {
+  font-size: cfs(16px, 18.72px);
+  line-height: clh(1, 0.83, 16, 18.72);
+}
+h4, p {
+  font-size: cfs(13.28px, 16px);
+  line-height: clh(0.83, 1, 13.28, 16);
+}
+h5 {
+  font-size: cfs(10.72px, 13.28px);
+  line-height: (0.67, 0.83, 10.72, 13.28);
+}
+h6 {
+  font-size: cfs(8px, 10.72px);
+  line-height: (0.5, 0.67, 8, 10.72);
+}
