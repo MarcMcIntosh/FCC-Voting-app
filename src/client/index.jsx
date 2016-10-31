@@ -1,29 +1,24 @@
 import React from 'react';
-import { createStore } from 'redux';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import {
   Router,
   Route,
   browserHistory,
   IndexRoute,
 } from 'react-router';
-
+// Reducer
+import reducer from './RootReducer';
 // UI
 import App from './App';
 import Home from './components/Home';
 
 require('./styles/main.scss');
 
-function counter(state = 0, action) {
-  switch (action.type) {
-    case 'INCREMENT': return state + 1;
-    case 'DECREMENT': return state - 1;
-    default: return state;
-  }
-}
 /* Development Store compatable with redux devtools */
-const store = createStore(counter,
+const store = createStore(reducer, applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
