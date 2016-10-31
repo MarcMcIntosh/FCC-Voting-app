@@ -1,0 +1,5 @@
+Read
+http://redux.js.org/docs/advanced/AsyncActions.html
+for info about using isomorphic-fetch
+and thunks
+for writing api calls
