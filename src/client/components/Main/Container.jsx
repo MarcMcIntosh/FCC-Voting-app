@@ -10,7 +10,7 @@ class Home extends React.Component {
     }
   }
   render() {
-    return (<main>
+    return (<main className="page__container">
       <h1> Home Page </h1>
       <section>{this.props.polls.map(poll => (
         <ListItem key={poll.id} title={poll.question} />

@@ -1,7 +1,11 @@
 import React from 'react';
+import Nav from './components/Nav/Container';
 
 const App = ({ children }) => (
-  <main>{children}</main>
+  <div>
+    <header className="topnav"><Nav /></header>
+    {children}
+  </div>
 );
 
 App.propTypes = {

@@ -1,5 +1,28 @@
 //Does not work
-
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+  body {
+    font-size: 16px;
+  }
+}
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 1224px) {
+  body {
+    font-size: 18px;
+  }
+}
+/* Large screens ----------- */
+@media only screen  and (min-width : 1824px) {
+  body {
+    font-size: 20px;
+  }
+}
 @function calc-font-size($min, $max){
   @return calc($min + ( $max - $min ) * ( 100vw - $min-screen-size) / ( $max-screen-size - $min-screen-size ) );
 }

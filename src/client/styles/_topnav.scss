@@ -1,0 +1,15 @@
+.topnav {
+  position: fixed;
+  clear: both;
+  top: 0;
+  width: 100%;
+  height: auto;
+  background-color: $darkgray;
+  &__container {
+    clear: both;
+    position: absolute;
+    &--right {
+      float: right;
+    }
+  }
+}

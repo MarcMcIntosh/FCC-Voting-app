@@ -1,6 +1,12 @@
 @import "~normalize-scss";
-// $min-screen-size: 320px;
-// $max-screen-size: 1824px;
- html, body, main {
+@import "colours";
+@import "topnav";
+ html, body {
    background-color: #eee;
+   margin: 0;
+ }
+
+ .main__container {
+   margin-top: 2em;
+   padding: 8px;
  }

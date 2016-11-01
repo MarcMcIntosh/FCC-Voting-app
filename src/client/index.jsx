@@ -14,7 +14,7 @@ import {
 import reducer from './RootReducer';
 // UI
 import App from './App';
-import Home from './components/Home';
+import Main from './components/Main/Container';
 
 require('./styles/main.scss');
 
@@ -34,7 +34,7 @@ render((
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRoute component={Home} />
+        <IndexRoute component={Main} />
       </Route>
     </Router>
   </Provider>
