@@ -1,6 +1,6 @@
 const DATA = [
   { id: 'aob', question: 'test' },
-  { id: 'oeri', quesiton: 'test2' },
+  { id: 'oeri', question: 'test2' },
 ];
 
 const TIMEOUT = 0;

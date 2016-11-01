@@ -2,9 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import getPolls from '../actions/Polls';
 
-const Home = () => (
-  <h1>Home page</h1>
-);
+class Home extends React.Component {
+  componentDidMount() {
+    if (this.props.polls.length <= 0 && !this.props.success && !this.props.error) {
+      this.props.onGetPolls();
+    }
+  }
+  render() {
+    return (<main>
+      <h1> Home Page </h1>
+      <ul>{
+        this.props.polls.map(poll => (
+          <li key={poll.id}>{poll.question}</li>
+        ))
+      }</ul>
+    </main>);
+  }
+}
 
 Home.propTypes = {
   polls: React.PropTypes.array,
@@ -14,8 +28,9 @@ Home.propTypes = {
     React.PropTypes.instanceOf(Error),
     React.PropTypes.bool,
   ]),
-  fetching: React.PropTypes.bool,
+  // fetching: React.PropTypes.bool,
   onGetPolls: React.PropTypes.func,
+  success: React.PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
