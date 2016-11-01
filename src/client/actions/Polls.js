@@ -1,4 +1,4 @@
-import apiCall from '../api/PollList';
+import apiCall from '../api/Polls';
 
 export const RECEIVE_POLL_LIST = 'RECEIVE_POLL_LIST';
 export function receive(payload) {
