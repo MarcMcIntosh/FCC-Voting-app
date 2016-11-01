@@ -1,3 +1,6 @@
 @import "~normalize-scss";
-$min-screen-size: 320px;
-$max-screen-size: 1824px;
+// $min-screen-size: 320px;
+// $max-screen-size: 1824px;
+ html, body, main {
+   background-color: #eee;
+ }
