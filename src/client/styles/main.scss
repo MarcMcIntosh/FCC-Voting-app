@@ -1,9 +1,17 @@
 @import "~normalize-scss";
+@import url('http://fonts.googleapis.com/css?family=Source+Code+Pro');
 @import "colours";
 @import "topnav";
- html, body {
-   background-color: #eee;
+@import "listitem";
+
+html, body {
+   // background-color: #eee;
    margin: 0;
+   background-color: $background;
+   color: $text;
+   font-family: 'Source Code Pro', mono;
+   font-weight: 400;
+   -webkit-font-smoothing: antialiased;
  }
 
  .main__container {

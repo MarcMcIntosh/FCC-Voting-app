@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import getPolls from '../../actions/Polls';
+import { getPolls } from '../../actions/Polls';
 import ListItem from './ListItem';
 
 class Home extends React.Component {

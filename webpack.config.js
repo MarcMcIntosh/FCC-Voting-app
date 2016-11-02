@@ -60,6 +60,9 @@ module.exports = [
         }, {
           test: /\.scss$/,
           loader: ExtractTextPlugin.extract('css!postcss!sass'),
+        }, {
+          test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+          loader: 'url-loader?limit=100000',
         },
       ],
     },
