@@ -1,7 +1,7 @@
 @import "~normalize-scss";
 @import url('http://fonts.googleapis.com/css?family=Source+Code+Pro');
 @import "colours";
-@import "topnav";
+//@import "topnav";
 @import "listitem";
 @import "navbar";
 
@@ -12,7 +12,7 @@ html, body {
    color: $text;
    font-family: 'Source Code Pro', mono;
    font-weight: 400;
-   -webkit-font-smoothing: antialiased;
+   //-webkit-font-smoothing: antialiased;
  }
 
  .main__container {

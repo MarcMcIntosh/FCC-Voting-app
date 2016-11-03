@@ -1,4 +1,4 @@
-import apiCall from '../api/Polls';
+import { getPolls } from '../api/Polls';
 
 export const RECEIVE_POLL_LIST = 'RECEIVE_POLL_LIST';
 export function receive(payload) {
@@ -23,7 +23,7 @@ export function getPollList() {
 export default function () {
   return (dispatch) => {
     dispatch(getPollList());
-    return apiCall((err, payload) => {
+    return getPolls((err, payload) => {
       if (err) {
         return dispatch(error(err));
       }

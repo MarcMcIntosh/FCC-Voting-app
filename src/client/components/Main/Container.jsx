@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getPolls } from '../../actions/Polls';
-import ListItem from './ListItem';
+import getPolls from '../../actions/Polls';
+// import ListItem from './ListItem';
+import PollList from './PollList';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -10,11 +11,19 @@ class Home extends React.Component {
     }
   }
   render() {
+    let dsp = (<div />);
+    if (this.props.success) {
+      dsp = (<PollList data={this.props.polls} />);
+    } else if (this.props.fetching) {
+      dsp = (<div className="loading">Loading</div>);
+    } else if (this.props.error) {
+      dsp = (
+        <div>Error: {JSON.stringify(this.props.error)}</div>
+      );
+    }
     return (<main className="page__container">
       <h1> Home Page </h1>
-      <section>{this.props.polls.map(poll => (
-        <ListItem key={poll.id} title={poll.question} />
-      ))}</section>
+      {dsp}
     </main>);
   }
 }
@@ -27,7 +36,7 @@ Home.propTypes = {
     React.PropTypes.instanceOf(Error),
     React.PropTypes.bool,
   ]),
-  // fetching: React.PropTypes.bool,
+  fetching: React.PropTypes.bool,
   onGetPolls: React.PropTypes.func,
   success: React.PropTypes.bool,
 };

@@ -23,6 +23,7 @@ const DEFAULT_STATE = {
   isFetching: false,
   error: undefined,
   success: undefined,
+  view: null,
 };
 /* Development Store compatable with redux devtools */
 const store = createStore(reducer, DEFAULT_STATE, compose(
@@ -35,7 +36,7 @@ render((
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Main} />
-        <Route path="/poll/:id" component={Poll} />
+        <Route path="poll/:uuid" component={Poll} />
       </Route>
     </Router>
   </Provider>
