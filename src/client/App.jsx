@@ -3,7 +3,7 @@ import Nav from './components/Nav/Container';
 
 const App = ({ children }) => (
   <div>
-    <header className="topnav"><Nav /></header>
+    <Nav />
     {children}
   </div>
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Nav = () => (
-  <nav className="topnav__container">
+  <nav className="navbar">
     Hello
   </nav>
 );

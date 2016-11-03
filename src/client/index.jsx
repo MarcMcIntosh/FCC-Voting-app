@@ -10,11 +10,11 @@ import {
   IndexRoute,
 } from 'react-router';
 // Reducer
-
 import reducer from './RootReducer';
 // UI
 import App from './App';
 import Main from './components/Main/Container';
+import Poll from './components/Poll/Container';
 
 require('./styles/main.scss');
 
@@ -35,6 +35,7 @@ render((
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Main} />
+        <Route path="/poll/:id" component={Poll} />
       </Route>
     </Router>
   </Provider>
