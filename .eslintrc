@@ -7,10 +7,12 @@
   "rules": {
     "no-underscore-dangle": "off",
     "react/forbid-prop-types": "off",
+    "new-cap": "off",
     "import/no-extraneous-dependencies": [
       "error", {
         "devDependencies": false
       }
-    ]
+    ],
+    "strict": "off",
   }
 }

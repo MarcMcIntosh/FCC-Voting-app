@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -18,8 +19,17 @@ const PLUGINS_CLIENT = [
   }),
 ];
 
-// const PLUGINS_SERVER = [];
-
+const PLUGINS_SERVER = [
+  // new webpack.optimize.OccurenceOrderPlugin(),
+//  new webpack.optimize.DedupePlugin(),
+//  new webpack.optimize.AggressiveMergingPlugin(),
+//  new webpack.ResolverPlugin(
+//    new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(
+//      'package.json',
+//      ['main']
+//    )
+//  ),
+];
 
 module.exports = [
   {
@@ -37,7 +47,7 @@ module.exports = [
       path: './build/client',
     },
     resolve: {
-      extensions: ['', '.js', '.jsx'],
+      extensions: ['', '.js', '.jsx', '.json'],
       modulesDirectories: ['node_modules'],
     },
     plugins: PLUGINS_CLIENT,
@@ -63,6 +73,52 @@ module.exports = [
         }, {
           test: /\.(png|woff|woff2|eot|ttf|svg)$/,
           loader: 'url-loader?limit=100000',
+        },
+      ],
+    },
+  }, {
+    name: 'server',
+    entry: './src/server/index.js',
+    target: 'async-node',
+    output: {
+      filename: 'server.js',
+      path: './build',
+      libraryTarget: 'commonjs2',
+    },
+    resolve: {
+      root: [
+        path.resolve('node_modules'),
+        path.resolve('/usr/lib/node_modules'),
+        path.resolve('~/.npm'),
+      ],
+      extensions: ['', '.js', '.jsx', '.json'],
+      modulesDirectories: ['node_modules'],
+    },
+    resolveLoader: {
+      root: path.resolve('node_modules'),
+      fallback: path.resolve('~/.npm'),
+    },
+    plugins: PLUGINS_SERVER,
+    module: {
+      preLoaders: [{
+        loader: 'eslint-loader',
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+      }],
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          // exclude: /node_modules/,
+          query: {
+            presets: ['es2015'],
+            plugins: ['transform-object-rest-spread'],
+          },
+        },
+        {
+          test: /\.json$/,
+          loader: 'json-loader',
+          // exclude: /node_modules/,
         },
       ],
     },

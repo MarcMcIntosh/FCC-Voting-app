@@ -1,4 +1,5 @@
 import React from 'react';
+import fetch from 'isomorphic-fetch';
 
 class Container extends React.Component {
   constructor(props) {
@@ -7,6 +8,8 @@ class Container extends React.Component {
       question: '',
       error: false,
       answers: ['', ''],
+      sending: false,
+      success: false,
     };
     this.addAnswer = this.addAnswer.bind(this);
     this.rmAnswer = this.rmAnswer.bind(this);
@@ -61,8 +64,7 @@ class Container extends React.Component {
     const answers = this.state.answers.map(
       d => d.trim()
     ).filter(d => (d !== ''));
-     // console.log(`Question: ${question}`);
-     // console.log(`Answers: ${answers}`);
+
     if (question === '') {
       this.setState({
         error: {
@@ -79,8 +81,42 @@ class Container extends React.Component {
       });
     } else {
        // Handle Submition logic here
-      this.setState({ error: false });
+      this.setState({
+        error: false,
+        sending: true,
+        question,
+        answers,
+      }, this.sendData);
     }
+  }
+  sendData() {
+    fetch('/api/new', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        question: this.state.question,
+        answers: this.state.answers,
+      }),
+    }).then((res) => {
+      if (res.status >= 400) {
+        this.setState({
+          error: {
+            type: 'submit',
+            message: 'Bad response from server',
+          },
+        });
+      }
+      return res.json();
+    }).then((json) => {
+      console.log(json);
+      this.setState({
+        success: true,
+        sending: false,
+      });
+    });
   }
   render() {
     let msg = (<div />);
@@ -105,11 +141,10 @@ class Container extends React.Component {
         />
         <div className="form__header">Answers
           {this.state.answers.map((d, i) => (
-            <div>
+            <div key={i}>
               <input
                 type="text"
                 tabIndex="0"
-                key={i}
                 value={d}
                 className="form__question"
                 onChange={e => this.editAnswer(e, i)}
@@ -131,8 +166,8 @@ class Container extends React.Component {
         <div className="form__footer">
           {msg}
           <button
+            type="submit"
             className="form__submit"
-            onClick={this.submit}
           >Submit</button>
         </div>
       </form>
