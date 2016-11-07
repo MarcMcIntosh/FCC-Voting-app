@@ -5,7 +5,8 @@ class Container extends React.Component {
     super(props);
     this.state = {
       question: '',
-      answers: [''],
+      error: false,
+      answers: ['', ''],
     };
     this.addAnswer = this.addAnswer.bind(this);
     this.rmAnswer = this.rmAnswer.bind(this);
@@ -23,12 +24,21 @@ class Container extends React.Component {
     event.preventDefault();
     const arr = [].concat(this.state.answers);
     arr[index] = event.target.value;
-    this.setState({ answers: arr });
+    if (this.state.error !== false && this.state.error.type === 'answers') {
+      this.setState({
+        error: false,
+        answers: arr,
+      });
+    } else {
+      this.setState({
+        answers: arr,
+      });
+    }
   }
   rmAnswer(event, index) {
     event.preventDefault();
     const arr = [].concat(this.state.answers);
-    if (arr.length > 1) {
+    if (arr.length >= 3) {
       this.setState({
         answers: arr.filter((d, i) => index !== i),
       });
@@ -36,7 +46,14 @@ class Container extends React.Component {
   }
   editQuestion(event) {
     event.preventDefault();
-    this.setState({ question: event.target.value });
+    if (this.state.error !== false && this.state.error.type === 'question') {
+      this.setState({
+        error: false,
+        question: event.target.value,
+      });
+    } else {
+      this.setState({ question: event.target.value });
+    }
   }
   submit(event) {
     event.preventDefault();
@@ -44,30 +61,59 @@ class Container extends React.Component {
     const answers = this.state.answers.map(
       d => d.trim()
     ).filter(d => (d !== ''));
-    console.log(`Question: ${question}`);
-    console.log(`Answers: ${answers}`);
+     // console.log(`Question: ${question}`);
+     // console.log(`Answers: ${answers}`);
+    if (question === '') {
+      this.setState({
+        error: {
+          type: 'question',
+          message: 'A Question must be provided',
+        },
+      });
+    } else if (answers.length <= 1) {
+      this.setState({
+        error: {
+          type: 'answers',
+          message: 'Two Answers or more required',
+        },
+      });
+    } else {
+       // Handle Submition logic here
+      this.setState({ error: false });
+    }
   }
-
   render() {
+    let msg = (<div />);
+    if (this.state.error !== false) {
+      msg = (
+        <div className="form__error">
+          {this.state.error.message}
+        </div>
+      );
+    }
     return (<div> Add new poll form
-      <form onSubmit={this.submit} className="form">
+      <form className="form" onSubmit={this.submit}>
         <div className="form__header">Poll Question</div>
         <input
+          type="text"
           tabIndex="0"
           className="question__input"
           placeholder="Add poll question here"
           value={this.state.question}
           onChange={this.editQuestion}
+          required
         />
         <div className="form__header">Answers
           {this.state.answers.map((d, i) => (
             <div>
               <input
+                type="text"
                 tabIndex="0"
                 key={i}
                 value={d}
                 className="form__question"
                 onChange={e => this.editAnswer(e, i)}
+                required
               />
               <button
                 tabIndex="0"
@@ -83,6 +129,7 @@ class Container extends React.Component {
           ))}
         </div>
         <div className="form__footer">
+          {msg}
           <button
             className="form__submit"
             onClick={this.submit}
