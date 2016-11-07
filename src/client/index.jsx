@@ -15,6 +15,7 @@ import reducer from './RootReducer';
 import App from './App';
 import Main from './components/Main/Container';
 import Poll from './components/Poll/Container';
+import NewPoll from './components/New/Container';
 
 require('./styles/main.scss');
 
@@ -37,6 +38,7 @@ render((
       <Route path="/" component={App}>
         <IndexRoute component={Main} />
         <Route path="poll/:uuid" component={Poll} />
+        <Route path="new" component={NewPoll} />
       </Route>
     </Router>
   </Provider>
