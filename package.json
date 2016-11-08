@@ -2,9 +2,9 @@
   "name": "freecodecamp-voting-app",
   "version": "0.0.1",
   "description": "generic voting app writin in response to a challange from freecodecamp.com",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "webpack --progress && node ./build/server.js",
+    "start": "webpack --progress && node server.js",
     "production": "webpack -p --progress && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -37,6 +37,7 @@
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.24.0",
     "json-loader": "^0.5.4",
+    "node-loader": "^0.6.0",
     "node-sass": "^3.10.1",
     "postcss-loader": "^1.1.0",
     "sass-loader": "^4.0.2",
@@ -48,6 +49,7 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^4.6.6",
     "normalize-scss": "^6.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

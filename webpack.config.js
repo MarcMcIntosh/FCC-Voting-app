@@ -12,14 +12,14 @@ const PLUGINS_CLIENT = [
   new HtmlWebpackPlugin({
     inject: true,
     filename: 'index.html',
-    template: 'src/index.ejs',
+    template: 'client/index.ejs',
     files: {
       css: ['/styles.css'],
     },
   }),
 ];
 
-const PLUGINS_SERVER = [
+//const PLUGINS_SERVER = [
   // new webpack.optimize.OccurenceOrderPlugin(),
 //  new webpack.optimize.DedupePlugin(),
 //  new webpack.optimize.AggressiveMergingPlugin(),
@@ -29,12 +29,12 @@ const PLUGINS_SERVER = [
 //      ['main']
 //    )
 //  ),
-];
+//];
 
 module.exports = [
   {
     name: 'client',
-    entry: './src/client/index.jsx',
+    entry: './client/index.jsx',
     target: 'web',
     devtool: 'cheap-source-map',
     devServer: {
@@ -44,7 +44,7 @@ module.exports = [
     },
     output: {
       filename: '[hash].js',
-      path: './build/client',
+      path: './build',
     },
     resolve: {
       extensions: ['', '.js', '.jsx', '.json'],
@@ -76,7 +76,7 @@ module.exports = [
         },
       ],
     },
-  }, {
+  }, /* {
     name: 'server',
     entry: './src/server/index.js',
     target: 'async-node',
@@ -91,7 +91,13 @@ module.exports = [
         path.resolve('/usr/lib/node_modules'),
         path.resolve('~/.npm'),
       ],
-      extensions: ['', '.js', '.jsx', '.json'],
+      extensions: [
+        '',
+        '.js',
+        '.jsx',
+        '.json',
+        //'.node'
+      ],
       modulesDirectories: ['node_modules'],
     },
     resolveLoader: {
@@ -122,5 +128,5 @@ module.exports = [
         },
       ],
     },
-  },
+  }, */
 ];
