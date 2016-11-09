@@ -34,8 +34,14 @@ function createPoll(obj, cb) {
     return cb(null, doc);
   });
 }
+
+function vote(poll, answer, user) {
+  return;
+};
+
 module.exports = {
   getPolls,
   createPoll,
   getPollById,
+  vote,
 };
