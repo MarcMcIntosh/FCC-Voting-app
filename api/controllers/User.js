@@ -14,6 +14,12 @@ function createUser(obj, cb) {
   }), password, (err, account) => cb(err, account));
 }
 
+/* function signIn(obj, cb) {
+  const username = obj.username;
+  const password = obj.password;
+
+}*/
+
 module.exports = {
   createUser,
 };
