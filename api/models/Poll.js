@@ -1,6 +1,8 @@
-const Schema = require('mongoose').Schema;
+'use strict';
 
-const Poll = new Schema({
+const mongoose = require('mongoose');
+
+const Poll = new mongoose.Schema({
   question: { type: String, required: true },
   answers: [{
     answer: { type: String, required: true },
@@ -8,12 +10,9 @@ const Poll = new Schema({
   }],
   timestamp: { type: Date, default: Date.now },
   owner: {
-    type: String,
-    // required: true,
-    default: 'Marc',
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
   },
 });
 
-module.exports = {
-  Poll,
-};
+module.exports = mongoose.model('Poll', Poll);

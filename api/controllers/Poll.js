@@ -1,17 +1,6 @@
 'use strict';
 
-const mongoose = require('mongoose');
-const Schemas = require('./Schemas');
-
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://127.0.0.1:27017/test');
-const db = mongoose.connection;
-const Poll = mongoose.model('Poll', Schemas.Poll);
-
-db.on('error', err => console.error(err));
-db.on('open', () => {
-  console.log('Mogoose Connected');
-});
+const Poll = require('../models/Poll');
 
 function getPolls(cb) {
   const query = Poll.find();
@@ -35,13 +24,8 @@ function createPoll(obj, cb) {
   });
 }
 
-function vote(poll, answer, user) {
-  return;
-};
-
 module.exports = {
   getPolls,
-  createPoll,
   getPollById,
-  vote,
+  createPoll,
 };

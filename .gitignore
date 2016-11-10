@@ -4,3 +4,4 @@ data/*
 .c9
 notes.txt
 build
+createUser.sh
