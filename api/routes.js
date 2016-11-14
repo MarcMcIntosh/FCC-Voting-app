@@ -2,22 +2,29 @@
 
 const express = require('express');
 const passport = require('passport');
-// const Poll = require('./models/Poll');
 const Poll = require('./controllers/Poll');
-//const User = require('./controllers/User');
-const User = require('./models/User');
+const User = require('./User/Model');
 
-function createUser(obj, cb) {
-  const username = obj.username;
-  const password = obj.password;
-  const email = obj.email;
-  const votes = obj.votes || [];
+
+function createUser(req, res, next) {
+  const { name, password, email, votes = [] } = req.body;
   User.register(new User({
-    username,
+    name,
     email,
     votes,
-  }), password, (err, account) => cb(err, account));
+  }), password, (err) => {
+    if (err) {
+      return res.json({
+        type: 'signup',
+        success: false,
+        message: 'Error creating user',
+        payload: err,
+      });
+    }
+    return next();
+  });
 }
+
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
@@ -97,51 +104,25 @@ router.post('/new', (req, res) => {
   });
 });
 
-router.post('/signup', (req, res) => {
-  /* Check for session */
-  // console.log('Request to createing New User');
-  // console.log(req.session);
-  createUser(req.body, (err, acc) => {
-    if (err) {
-      res.json({
-        type: 'signup',
-        success: false,
-        message: 'Error creating user',
-        payload: err,
-      });
-    } else {
-      passport.authenticate('local')(req, res, () => {
-      /* This should set a client cookie */
-      // console.log("Creating New session");
-      // console.log(req.session);
-      // user data stored in req.user;
-      // console.log(req.user);
-      // whole requset header
-      // console.log(req);
-      // check response Settings
-      // console.log(res);
-      /* res also has
-      * res.body containing the posted data
-      * and
-      * res.sessionStore
-      * which container sessionID,
-      * session whichis the same as req.session
-      * and res.sessionStore.user
-      * which is the user documnet
-      */
-        res.json({
-          type: 'signup',
-          success: true,
-          message: 'user created',
-          payload: acc,
-        });
-      });
-    }
+
+router.post('/signup', createUser, signIn, (req, res) => {
+  const { name, _id, votes, polls } = req.user;
+  res.json({
+    type: 'signup',
+    success: true,
+    message: 'new user created and logged in',
+    payload: { _id, name, votes, polls },
   });
 });
 
 router.post('/signin', signIn, (req, res) => {
-  res.json(req.user);
+  const { _id, name, polls, votes } = req.user;
+  res.json({
+    type: 'signin',
+    success: true,
+    message: 'User Sign-in successfull',
+    payload: { _id, name, polls, votes },
+  });
 });
 
 router.get('/signout', isLoggedIn, (req, res) => {
@@ -155,11 +136,12 @@ router.get('/signout', isLoggedIn, (req, res) => {
 });
 
 router.get('/account', isLoggedIn, (req, res) => {
+  const { _id, name, email, votes, polls } = req.user;
   res.json({
     type: 'account',
     success: true,
     message: 'user acount information retreived',
-    payload: req.user,
+    payload: { _id, name, email, votes, polls },
   });
 });
 

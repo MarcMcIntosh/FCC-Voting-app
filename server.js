@@ -11,7 +11,7 @@ const session = require('express-session');
 const helmet = require('helmet');
 // const api = require('./api/index');
 const api = require('./api/routes');
-const User = require('./api/models/User');
+const User = require('./api/User/Model');
 
 /* Connect to MongoDb */
 mongoose.Promise = global.Promise;
