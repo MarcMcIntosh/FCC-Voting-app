@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
+import { persistStore, autoRehydrate } from 'redux-persist';
 import {
   Router,
   Route,
@@ -25,12 +26,15 @@ const DEFAULT_STATE = {
   error: undefined,
   success: undefined,
   view: null,
+  user: null,
 };
 /* Development Store compatable with redux devtools */
 const store = createStore(reducer, DEFAULT_STATE, compose(
   applyMiddleware(thunk),
+  autoRehydrate(),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 );
+persistStore(store);
 
 render((
   <Provider store={store}>

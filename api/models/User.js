@@ -31,9 +31,15 @@ const User = new mongoose.Schema({
   }],
   polls: [mongoose.Schema.Types.ObjectId],
 });
+/*
+User.statics.serializeUser = function () {
+  return (user, cb) => cb(null, user.id);
+};
 
-User.plugin(passportLocalMongoose, {
-  // usernameField: 'email',
-});
+User.statics.deserializeUser = function () {
+  return (id, cb) => this.findOne(id, cb);
+};*/
+
+User.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', User);
