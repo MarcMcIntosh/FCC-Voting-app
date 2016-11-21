@@ -4,7 +4,7 @@ import getPolls from '../actions/Polls';
 
 class Home extends React.Component {
   componentDidMount() {
-    if (this.props.polls.length <= 0 && !this.props.success && !this.props.error) {
+    if (this.props.polls.length <= 0 && !this.props.error) {
       this.props.onGetPolls();
     }
   }
@@ -30,14 +30,14 @@ Home.propTypes = {
   ]),
   // fetching: React.PropTypes.bool,
   onGetPolls: React.PropTypes.func,
-  success: React.PropTypes.bool,
+  // success: React.PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
   polls: state.polls,
   fetching: state.isFectching,
   error: state.error,
-  success: state.success,
+  // success: state.success,
 });
 
 const mapDispatchToProps = dispatch => ({

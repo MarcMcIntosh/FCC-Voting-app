@@ -5,6 +5,7 @@ const Nav = () => (
   <nav className="navbar">
     Hello
     <Link to="/new">Add new</Link>
+    <Link to="/user/signup">Sign Up</Link>
   </nav>
 );
 
