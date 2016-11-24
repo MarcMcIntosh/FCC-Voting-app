@@ -7,6 +7,7 @@ import {
 } from '../actions/CreateUserAccount';
 
 export default function (state, action) {
+
   switch (action.type) {
     case REQUEST_CREATE_ACCOUNT: return {
       ...state,

@@ -18,6 +18,8 @@ import Main from './components/Main/Container';
 import Poll from './components/Poll/Container';
 import NewPoll from './components/New/Container';
 import Signup from './components/Signup/Container';
+import UserPage from './components/User/Container';
+import SignIn from './components/Login/LoginForm';
 
 require('./styles/main.scss');
 
@@ -29,6 +31,7 @@ const DEFAULT_STATE = {
   user: null,
   authenticated: false,
   cookieConsent: false,
+  votes: [],
 };
 /* Development Store compatable with redux devtools */
 const store = createStore(reducer, DEFAULT_STATE, compose(
@@ -46,7 +49,37 @@ render((
         <Route path="poll/:uuid" component={Poll} />
         <Route path="new" component={NewPoll} />
         <Route path="user">
-          <Route path="signup" component={Signup} />
+          <Route
+            path="signup"
+            component={Signup}
+            onEnter={
+              (nextState, transition) => {
+                if (localStorage.token) {
+                  transition.to('/user/account');
+                }
+              }
+            }
+          />
+          <Route
+            path="signin"
+            component={SignIn}
+            onEnter={
+              (nextState, transition) => {
+                if (localStorage.token) {
+                  transition.to('/user/account');
+                }
+              }
+            }
+          />
+          <Route
+            path="account"
+            component={UserPage}
+            onEnter={(nextState, transition) => {
+              if (!localStorage.token) {
+                transition.to('/user/signin');
+              }
+            }}
+          />
         </Route>
       </Route>
     </Router>

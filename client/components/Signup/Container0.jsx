@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import fetch from 'isomorphic-fetch';
-import { receive } from '../../actions/CreateUserAccount';
+import createUserAccount from '../../actions/CreateUserAccount';
+
 /* To do
 * Write a form
 * inputs:
@@ -12,56 +12,21 @@ import { receive } from '../../actions/CreateUserAccount';
 class Signup extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { name: '', email: '', password: '' };
     this.reset = this.reset.bind(this);
     this.submit = this.submit.bind(this);
-    this.success = this.success.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      name: '',
-      email: '',
-      password: '',
-      error: null,
-      isFetching: false,
-      success: null,
-    };
   }
   reset() {
     this.setState({ name: '', email: '', password: '' });
   }
-  submit(event) {
-    event.preventDefault();
-    const { name, password, email } = this.state;
-    const votes = this.props.votes;
-    this.setState({ isFetching: true });
-    fetch('/api/signup', {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, password, email, votes }),
-    }).then((res) => {
-      if (res.status >= 400) {
-        this.setState({
-          isFetching: false,
-          error: {
-            message: 'Bad response creating account',
-          },
-        });
-      } return res.json();
-    }).then((json) => {
-      if (!json.success) {
-        return this.setState({
-          isFetching: false,
-          error: json.payload,
-        });
-      } return this.setState({
-        isFetching: false,
-        success: json.payload,
-      }, this.success);
-    }).catch(e => this.setState({ error: e }));
-  }
-  success() {
-    this.props.onSuccess(this.state.success);
-    // this.context.router.push('/user/account');
+  submit() {
+    this.props.handleSubmit({
+      name: this.state.name,
+      password: this.state.password,
+      email: this.state.email,
+      votes: this.props.votes,
+    });
   }
   handleChange(event) {
     event.preventDefault();
@@ -90,15 +55,8 @@ class Signup extends React.Component {
           value={this.state.password}
           onChange={this.handleChange}
           required
-        />{(
-          this.state.error
-        ) ? (
-          <div className="form__error">
-            {this.state.error.message}
-          </div>
-        ) : (
-          <div />
-        )}<div className="form__footer">
+        />
+        <div className="form__footer">
           <button
             type="submit"
             className="form__submit"
@@ -115,9 +73,7 @@ class Signup extends React.Component {
 }
 Signup.propTypes = {
   votes: React.PropTypes.array.isRequired,
-//  handleSubmit: React.PropTypes.func.isRequired,
-  onSuccess: React.PropTypes.func.isRequired,
-//  onError: React.PropTypes.func.isRequired,
+  handleSubmit: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -125,9 +81,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-//  handleSubmit: payload => dispatch(createUserAccount(payload)),
-  onSuccess: payload => dispatch(receive(payload)),
-//  onError: payload => dispatch(error(payload)),
+  handleSubmit: payload => dispatch(createUserAccount(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);
