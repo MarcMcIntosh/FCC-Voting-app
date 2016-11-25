@@ -61,7 +61,7 @@ class Signup extends React.Component {
   }
   success() {
     this.props.onSuccess(this.state.success);
-    // this.context.router.push('/user/account');
+    this.context.router.push('/user/account');
   }
   handleChange(event) {
     event.preventDefault();
@@ -118,6 +118,9 @@ Signup.propTypes = {
 //  handleSubmit: React.PropTypes.func.isRequired,
   onSuccess: React.PropTypes.func.isRequired,
 //  onError: React.PropTypes.func.isRequired,
+};
+Signup.contextTypes = {
+  router: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
