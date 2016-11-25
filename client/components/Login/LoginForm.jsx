@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { receive } from '../../actions/SignInUser';
 
 class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.submit = this.submit.bind(this);
     this.reset = this.reset.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -25,7 +25,8 @@ class SignIn extends React.Component {
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  submit() {
+  submit(event) {
+    event.preventDefault();
     this.setState({ isFetching: true }, this.postSignIn);
   }
   postSignIn() {
@@ -98,7 +99,7 @@ SignIn.propTypes = {
 };
 
 SignIn.contextTypes = {
-  router: React.PropTypes.func.isRequired,
+  router: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({

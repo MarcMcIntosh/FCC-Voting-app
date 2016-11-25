@@ -13,7 +13,6 @@ import {
 } from '../actions/CreateUserAccount';
 
 export default function (state, action) {
-  console.log(action.payload);
   switch (action.type) {
     case ERROR_USER_ACCOUNT: return {
       ...state,

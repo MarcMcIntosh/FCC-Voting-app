@@ -49,37 +49,9 @@ render((
         <Route path="poll/:uuid" component={Poll} />
         <Route path="new" component={NewPoll} />
         <Route path="user">
-          <Route
-            path="signup"
-            component={Signup}
-            onEnter={
-              (nextState, transition) => {
-                if (localStorage.token) {
-                  transition.to('/user/account');
-                }
-              }
-            }
-          />
-          <Route
-            path="signin"
-            component={SignIn}
-            onEnter={
-              (nextState, transition) => {
-                if (localStorage.token) {
-                  transition.to('/user/account');
-                }
-              }
-            }
-          />
-          <Route
-            path="account"
-            component={UserPage}
-            onEnter={(nextState, transition) => {
-              if (!localStorage.token) {
-                transition.to('/user/signin');
-              }
-            }}
-          />
+          <Route path="signup" component={Signup} />
+          <Route path="signin" component={SignIn} />
+          <Route path="account" component={UserPage} />
         </Route>
       </Route>
     </Router>

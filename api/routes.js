@@ -117,6 +117,10 @@ router.post('/signup', createUser, signIn, (req, res) => {
 
 router.post('/signin', signIn, (req, res) => {
   const { _id, name, polls, votes } = req.user;
+  console.log('Body');
+  console.log(req.body);
+  console.log('Saved user');
+  console.log(req.user);
   res.json({
     type: 'signin',
     success: true,

@@ -10,8 +10,8 @@ import { receive } from '../../actions/CreateUserAccount';
 */
 /* Note it might be easeir to make this a subapp */
 class Signup extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.reset = this.reset.bind(this);
     this.submit = this.submit.bind(this);
     this.success = this.success.bind(this);
@@ -120,7 +120,7 @@ Signup.propTypes = {
 //  onError: React.PropTypes.func.isRequired,
 };
 Signup.contextTypes = {
-  router: React.PropTypes.func.isRequired,
+  router: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
